@@ -4,7 +4,7 @@ import { PhotoWall } from './PhotoWall'
 import { SNAPS_7D } from './snaps7d'
 
 type RainbowStyle = 'bar' | 'badge' | 'border'
-type UIVersion = 'original' | 'glass' | 'elements' | 'colorful' | 'minimal'
+type UIVersion = 'original' | 'glass' | 'elements' | 'colorful' | 'minimal' | 'idcard'
 
 type Pet = {
   id: string
@@ -107,6 +107,7 @@ function App() {
     elements: 'B. 新元素',
     colorful: 'C. 鲜明配色',
     minimal: 'D. 简洁现代',
+    idcard: 'E. ID卡方案',
   }
 
   function getLayoutName(count: number): string {
@@ -184,90 +185,146 @@ function App() {
                 </button>
               </div>
 
-              <div className={`passportCard passportCardV2 rainbow-${rainbowStyle} ui-${uiVersion}`}>
-                <div className="rainbowBar" aria-hidden="true" />
-                <div className="rainbowBadge" aria-hidden="true" />
-                
-                {/* 卡片顶部装饰条 */}
-                <div className="cardTopStripe">
-                  <div className="chipIcon">
-                    <div className="chipInner">
-                      <div className="chipLine h" />
-                      <div className="chipLine v" />
+              {uiVersion === 'idcard' ? (
+                <div className="idCardNew">
+                  <div className="idCardHeader">
+                    <div className="idCardAvatar">
+                      <img src={activePet.avatar} alt={activePet.name} />
+                    </div>
+                    <div className="idCardHeaderText">
+                      <div className="idCardName">{activePet.name}</div>
+                      <div className="idCardPill">ID: 249102</div>
+                      <div className="idCardDays">
+                        {activePet.daysInFurever.toLocaleString()} days in Furever world
+                      </div>
                     </div>
                   </div>
-                  <div className="cardType">FUREVER ID</div>
-                </div>
 
-                <div className="passportHeaderV2">
-                  <div className="avatarV2">
-                    <img src={activePet.avatar} alt={activePet.name} />
-                    <div className="avatarRing" />
-                  </div>
+                  <div className="idCardDivider" />
 
-                  <div className="petInfoV2">
-                    <div className="petNameRow">
-                      <div className="petNameV2">{activePet.name}</div>
-                      <div className="verifiedBadge" title="Verified">✓</div>
+                  <div className="idCardStats">
+                    <div className="idCardStat">
+                      <div className="idCardStatIcon gender" aria-hidden="true" />
+                      <div className="idCardStatLabel">GENDER</div>
+                      <div className="idCardStatValue">Male</div>
                     </div>
-                    <div className="petMetaV2">{activePet.daysInFurever.toLocaleString()} days in Furever world</div>
-                    <div className="petStatus">
-                      <span className="statusDot" />
-                      <span className="statusText">Rainbow Bridge Resident</span>
+                    <div className="idCardStatSep" />
+                    <div className="idCardStat">
+                      <div className="idCardStatIcon age" aria-hidden="true" />
+                      <div className="idCardStatLabel">AGE</div>
+                      <div className="idCardStatValue">2 Years</div>
                     </div>
-                  </div>
-                </div>
-
-                <div className="passportBodyV2">
-                  <div className="infoGrid">
-                    <div className="infoItem">
-                      <span className="infoLabel">Gender</span>
-                      <span className="infoValue">{activePet.gender}</span>
-                    </div>
-                    <div className="infoItem">
-                      <span className="infoLabel">Age</span>
-                      <span className="infoValue">{activePet.age}</span>
-                    </div>
-                    <div className="infoItem">
-                      <span className="infoLabel">Crossed over</span>
-                      <span className="infoValue">{activePet.crossedOver}</span>
-                    </div>
-                    <div className="infoItem">
-                      <span className="infoLabel">ID</span>
-                      <span className="infoValue idValue">{activePet.petId}</span>
+                    <div className="idCardStatSep" />
+                    <div className="idCardStat">
+                      <div className="idCardStatIcon date" aria-hidden="true" />
+                      <div className="idCardStatLabel">DATE</div>
+                      <div className="idCardStatValue">12 May</div>
                     </div>
                   </div>
                 </div>
+              ) : (
+                <div className={`passportCard passportCardV2 rainbow-${rainbowStyle} ui-${uiVersion}`}>
+                  <div className="rainbowBar" aria-hidden="true" />
+                  <div className="rainbowBadge" aria-hidden="true" />
+                  
+                  {/* 卡片顶部装饰条 */}
+                  <div className="cardTopStripe">
+                    <div className="chipIcon">
+                      <div className="chipInner">
+                        <div className="chipLine h" />
+                        <div className="chipLine v" />
+                      </div>
+                    </div>
+                    <div className="cardType">FUREVER ID</div>
+                  </div>
 
-                {/* 卡片底部 - QR码和签名条 */}
-                <div className="cardFooter">
-                  <div className="qrCode">
-                    <div className="qrPattern">
-                      <div className="qrRow"><div className="qrDot filled" /><div className="qrDot" /><div className="qrDot filled" /><div className="qrDot filled" /><div className="qrDot" /></div>
-                      <div className="qrRow"><div className="qrDot" /><div className="qrDot filled" /><div className="qrDot" /><div className="qrDot" /><div className="qrDot filled" /></div>
-                      <div className="qrRow"><div className="qrDot filled" /><div className="qrDot" /><div className="qrDot filled" /><div className="qrDot" /><div className="qrDot" /></div>
-                      <div className="qrRow"><div className="qrDot" /><div className="qrDot filled" /><div className="qrDot filled" /><div className="qrDot" /><div className="qrDot filled" /></div>
-                      <div className="qrRow"><div className="qrDot filled" /><div className="qrDot" /><div className="qrDot" /><div className="qrDot filled" /><div className="qrDot" /></div>
+                  <div className="passportHeaderV2">
+                    <div className="avatarV2">
+                      <img src={activePet.avatar} alt={activePet.name} />
+                      <div className="avatarRing" />
+                    </div>
+
+                    <div className="petInfoV2">
+                      <div className="petNameRow">
+                        <div className="petNameV2">{activePet.name}</div>
+                        <div className="verifiedBadge" title="Verified">✓</div>
+                      </div>
+                      <div className="petMetaV2">{activePet.daysInFurever.toLocaleString()} days in Furever world</div>
+                      <div className="petStatus">
+                        <span className="statusDot" />
+                        <span className="statusText">Rainbow Bridge Resident</span>
+                      </div>
                     </div>
                   </div>
-                  <div className="signatureStrip">
-                    <div className="signatureLabel">Guardian</div>
-                    <div className="signatureLine">Echo</div>
+
+                  <div className="passportBodyV2">
+                    <div className="infoGrid">
+                      <div className="infoItem">
+                        <span className="infoLabel">Gender</span>
+                        <span className="infoValue">{activePet.gender}</span>
+                      </div>
+                      <div className="infoItem">
+                        <span className="infoLabel">Age</span>
+                        <span className="infoValue">{activePet.age}</span>
+                      </div>
+                      <div className="infoItem">
+                        <span className="infoLabel">Crossed over</span>
+                        <span className="infoValue">{activePet.crossedOver}</span>
+                      </div>
+                      <div className="infoItem">
+                        <span className="infoLabel">ID</span>
+                        <span className="infoValue idValue">{activePet.petId}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 卡片底部 - QR码和签名条 */}
+                  <div className="cardFooter">
+                    <div className="qrCode">
+                      <div className="qrPattern">
+                        <div className="qrRow"><div className="qrDot filled" /><div className="qrDot" /><div className="qrDot filled" /><div className="qrDot filled" /><div className="qrDot" /></div>
+                        <div className="qrRow"><div className="qrDot" /><div className="qrDot filled" /><div className="qrDot" /><div className="qrDot" /><div className="qrDot filled" /></div>
+                        <div className="qrRow"><div className="qrDot filled" /><div className="qrDot" /><div className="qrDot filled" /><div className="qrDot" /><div className="qrDot" /></div>
+                        <div className="qrRow"><div className="qrDot" /><div className="qrDot filled" /><div className="qrDot filled" /><div className="qrDot" /><div className="qrDot filled" /></div>
+                        <div className="qrRow"><div className="qrDot filled" /><div className="qrDot" /><div className="qrDot" /><div className="qrDot filled" /><div className="qrDot" /></div>
+                      </div>
+                    </div>
+                    <div className="signatureStrip">
+                      <div className="signatureLabel">Guardian</div>
+                      <div className="signatureLine">Echo</div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </section>
 
             <div className="quickCards">
               <button className="quickCard horizontal" type="button">
-                <div className="quickIcon">🎁</div>
+                <div className="quickIcon blurIcon">
+                  <div className="blurBg" />
+                  <svg className="blurSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="8" width="18" height="13" rx="2" />
+                    <path d="M12 8v13" />
+                    <path d="M3 12h18" />
+                    <path d="M12 8c0-2 1.5-4 3-4s3 2 3 4" />
+                    <path d="M12 8c0-2-1.5-4-3-4s-3 2-3 4" />
+                  </svg>
+                </div>
                 <div className="quickContent">
                   <div className="quickNumber">12</div>
                   <div className="quickLabel">Gift box</div>
                 </div>
               </button>
               <button className="quickCard horizontal" type="button">
-                <div className="quickIcon">📖</div>
+                <div className="quickIcon blurIcon">
+                  <div className="blurBg blue" />
+                  <svg className="blurSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                    <path d="M12 6v7" />
+                    <path d="M9 9l3-3 3 3" />
+                  </svg>
+                </div>
                 <div className="quickContent">
                   <div className="quickNumber">12</div>
                   <div className="quickLabel">Story book</div>
