@@ -1,0 +1,229 @@
+/* PhotoWall 动态照片墙样式 */
+
+.photoWallSection {
+  margin-top: 16px;
+}
+
+.photoWallTitle {
+  margin: 14px 5px 10px;
+  font-size: 16px;
+  font-weight: 900;
+  color: rgba(41, 41, 41, 0.95);
+}
+
+/* ========== 基础照片单元 ========== */
+.photoWall {
+  display: grid;
+  gap: 10px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.photoCell {
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  position: relative;
+}
+
+.photoCell:hover {
+  transform: scale(1.02) translateY(-2px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
+}
+
+.photoCell:active {
+  transform: scale(0.98);
+}
+
+.photoCell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.photoCell:hover img {
+  transform: scale(1.05);
+}
+
+/* ========== 空状态 ========== */
+.photoWallEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  background: rgba(255, 255, 255, 0.42);
+  border: 2px dashed rgba(255, 255, 255, 0.65);
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(16px);
+}
+
+.photoWallEmpty:hover {
+  background: rgba(255, 255, 255, 0.56);
+  border-color: rgba(255, 255, 255, 0.8);
+  transform: translateY(-2px);
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  opacity: 0.7;
+  transition: transform 0.3s ease;
+}
+
+.photoWallEmpty:hover .emptyIcon {
+  transform: scale(1.1);
+}
+
+.emptyTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(41, 41, 41, 0.8);
+  margin-bottom: 4px;
+}
+
+.emptyHint {
+  font-size: 13px;
+  color: rgba(41, 41, 41, 0.55);
+}
+
+/* ========== 1张: Hero ========== */
+.photoWall.hero {
+  grid-template-columns: 1fr;
+}
+
+.heroCell {
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
+}
+
+/* ========== 2张: Diptych ========== */
+.photoWall.diptych {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* ========== 3张: Focus Grid ========== */
+.photoWall.focus {
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    'big smallTop'
+    'big smallBottom';
+}
+
+.bigCell {
+  grid-area: big;
+  aspect-ratio: auto;
+}
+
+.smallTop {
+  grid-area: smallTop;
+}
+
+.smallBottom {
+  grid-area: smallBottom;
+}
+
+/* ========== 4张: Quad ========== */
+.photoWall.quad {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+/* ========== 5张: Mosaic B ========== */
+.photoWall.mosaic {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+}
+
+.mosaicBig {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  aspect-ratio: auto;
+}
+
+.mosaicRight {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+}
+
+.mosaicSmall {
+  aspect-ratio: 1 / 1;
+}
+
+/* ========== 6+张: Grid ========== */
+.photoWall.grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* ========== 动画关键帧 ========== */
+@keyframes photoEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes photoLeave {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.photoCell {
+  animation: photoEnter 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* 错开动画时间，产生依次出现的效果 */
+.photoCell:nth-child(1) { animation-delay: 0ms; }
+.photoCell:nth-child(2) { animation-delay: 50ms; }
+.photoCell:nth-child(3) { animation-delay: 100ms; }
+.photoCell:nth-child(4) { animation-delay: 150ms; }
+.photoCell:nth-child(5) { animation-delay: 200ms; }
+.photoCell:nth-child(6) { animation-delay: 250ms; }
+.photoCell:nth-child(7) { animation-delay: 300ms; }
+.photoCell:nth-child(8) { animation-delay: 350ms; }
+.photoCell:nth-child(9) { animation-delay: 400ms; }
+
+/* ========== 响应式适配 ========== */
+@media (max-width: 430px) {
+  .photoWall {
+    gap: 8px;
+  }
+
+  .photoCell {
+    border-radius: 12px;
+  }
+
+  .heroCell {
+    border-radius: 16px;
+  }
+}
+
+/* ========== 删除动画状态 ========== */
+.photoCell.deleting {
+  animation: photoLeave 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
