@@ -138,30 +138,27 @@
   grid-template-rows: 1fr 1fr;
 }
 
-/* ========== 5张: Mosaic B ========== */
+/* ========== 5张: Top Hero + 2x2 Grid ========== */
 .photoWall.mosaic {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
-.mosaicBig {
-  grid-column: 1;
-  grid-row: 1 / 3;
-  aspect-ratio: auto;
+.topHero {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  border-radius: 16px;
 }
 
-.mosaicRight {
-  grid-column: 2;
-  grid-row: 1 / 3;
+.quadGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 10px;
 }
 
-.mosaicSmall {
+.quadItem {
   aspect-ratio: 1 / 1;
 }
 

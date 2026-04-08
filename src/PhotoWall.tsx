@@ -140,22 +140,22 @@ export function PhotoWall({ photos, title, onPhotoClick, onAddPhoto }: PhotoWall
           </>
         )}
 
-        {/* 5张: Mosaic B */}
+        {/* 5张: Top Hero + 2x2 Grid */}
         {layoutType === 'mosaic' && (
           <>
             <PhotoCell
               src={photos[0]}
               index={0}
-              className="mosaicBig"
+              className="topHero"
               onClick={() => handlePhotoClick(0)}
             />
-            <div className="mosaicRight">
+            <div className="quadGrid">
               {photos.slice(1).map((src, idx) => (
                 <PhotoCell
                   key={idx + 1}
                   src={src}
                   index={idx + 1}
-                  className="mosaicSmall"
+                  className="quadItem"
                   onClick={() => handlePhotoClick(idx + 1)}
                 />
               ))}
